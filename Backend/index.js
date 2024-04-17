@@ -36,13 +36,14 @@ const questionSchema = new mongoose.Schema({
       message: 'Question must have exactly 4 options',
     },
   },
-  correctAnswerIndex: {
-    type: Number,
+  correctAnswer: {
+    type: String,
     required: true,
-    validate: {
-      validator: (index) => index >= 0 && index < 4,
-      message: 'Correct answer index must be between 0 and 3',
-    },
+  },
+  lang: {
+    type: String,
+    enum: ['java', 'c', 'cpp'], // Only allow these values
+    required: true,
   },
 });
 
@@ -50,10 +51,11 @@ const Question = mongoose.model('Question', questionSchema);
 
 // API Endpoints
 
-// Get all questions
-app.get('/api/questions', async (req, res) => {
+// Get all questions with a specific language
+app.get('/api/questions/:lang', async (req, res) => {
+  const { lang } = req.params;
   try {
-    const questions = await Question.find();
+    const questions = await Question.find({ lang });
     res.json(questions);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -74,12 +76,14 @@ app.get('/api/questions/:id', async (req, res) => {
 });
 
 // Create a question
+// Create a question
 app.post('/api/questions', async (req, res) => {
-  const { question, options, correctAnswerIndex } = req.body;
+  const { question, options, correctAnswer, lang } = req.body;
   const newQuestion = new Question({
     question,
     options,
-    correctAnswerIndex,
+    correctAnswer,
+    lang,
   });
   try {
     const savedQuestion = await newQuestion.save();
@@ -91,7 +95,7 @@ app.post('/api/questions', async (req, res) => {
 
 // Update a question
 app.put('/api/questions/:id', async (req, res) => {
-  const { question, options, correctAnswerIndex } = req.body;
+  const { question, options, correctAnswerIndex, lang } = req.body;
   try {
     const updatedQuestion = await Question.findByIdAndUpdate(
       req.params.id,
@@ -99,6 +103,7 @@ app.put('/api/questions/:id', async (req, res) => {
         question,
         options,
         correctAnswerIndex,
+        lang,
       },
       { new: true }
     );
