@@ -1,0 +1,49 @@
+.result-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+  }
+  
+  .result {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .result h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .result p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .result .certificate img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+  
+  .result .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .result .btn:hover {
+    background-color: #0056b3;
+  }
+  

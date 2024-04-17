@@ -1,0 +1,10 @@
+###
+ POST http://localhost:5000/api/questions
+Content-Type: application/json
+
+
+{
+  "question": "Which country is known as the Land of the Midnight Sun?",
+  "options": ["Norway", "Sweden", "Finland", "Iceland"],
+  "correctAnswerIndex": 0
+}
